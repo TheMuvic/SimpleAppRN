@@ -11,6 +11,7 @@ workflows:
           ls -la
           ls App.js || echo "App.js not found"
           ls ios/Podfile || echo "Podfile not found"
+          ls ios/SimpleAppRN.xcworkspace || echo "Workspace not found"
       - name: Install dependencies
         script: |
           npm install
@@ -24,7 +25,7 @@ workflows:
           xcode-project build-ipa \
             --workspace "ios/SimpleAppRN.xcworkspace" \
             --scheme "SimpleAppRN" \
-            --export-options-plist "$CM_EXPORT_OPTIONS"
+            --export-options-plist "$CM_EXPORT_OPTIONS" || { echo "Export failed"; exit 1; }
     artifacts:
       - ios/build/**/*.ipa
     publishing:
