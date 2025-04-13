@@ -10,12 +10,13 @@ workflows:
           pwd
           ls -la
           ls App.js || echo "App.js not found"
+          ls ios/Podfile || echo "Podfile not found"
       - name: Install dependencies
         script: |
           npm install
       - name: Pod install
         script: |
-          cd ios
+          cd ios || { echo "ios directory not found"; exit 1; }
           pod install
           cd ..
       - name: Build and export IPA
