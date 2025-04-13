@@ -20,6 +20,10 @@ workflows:
           cd ios || { echo "ios directory not found"; exit 1; }
           pod install
           cd ..
+      - name: Debug export options
+        script: |
+          echo "Export options path: $CM_EXPORT_OPTIONS"
+          ls -la "$CM_EXPORT_OPTIONS" || echo "Export options file not found"
       - name: Build and export IPA
         script: |
           xcode-project build-ipa \
