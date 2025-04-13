@@ -18,6 +18,7 @@ workflows:
       - name: Pod install
         script: |
           cd ios || { echo "ios directory not found"; exit 1; }
+          pod cache clean --all
           pod install --repo-update || { echo "Pod install failed"; exit 1; }
           cd ..
       - name: Debug code signing
@@ -39,4 +40,4 @@ workflows:
     publishing:
       email:
         recipients:
-          - your-email@example.com  # Replace with your email
+          - your-email@example.com  # Your email
