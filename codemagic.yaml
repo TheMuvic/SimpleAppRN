@@ -23,12 +23,39 @@ workflows:
           cd ..
       - name: Build unsigned IPA
         script: |
-          xcode-project build-ipa \
-            --workspace "ios/SimpleAppRN.xcworkspace" \
-            --scheme "SimpleAppRN" \
-            --skip-signing || { echo "Build unsigned IPA failed"; exit 1; }
+          cd ios
+          xcodebuild -workspace SimpleAppRN.xcworkspace \
+            -scheme SimpleAppRN \
+            -configuration Release \
+            -archivePath "../build/SimpleAppRN.xcarchive" \
+            archive || { echo "Archive failed"; exit 1; }
+          xcodebuild -exportArchive \
+            -archivePath "../build/SimpleAppRN.xcarchive" \
+            -exportPath "../build" \
+            -exportOptionsPlist "../exportOptions.plist" || { echo "Export IPA failed"; exit 1; }
+          cd ..
+      - name: Create exportOptions.plist
+        script: |
+          cat > ios/exportOptions.plist << EOF
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>development</string>
+            <key>signingStyle</key>
+            <string>manual</string>
+            <key>compileBitcode</key>
+            <false/>
+            <key>uploadBitcode</key>
+            <false/>
+            <key>uploadSymbols</key>
+            <false/>
+          </dict>
+          </plist>
+          EOF
     artifacts:
-      - ios/build/**/*.ipa
+      - ios/build/*.ipa
     publishing:
       email:
         recipients:
