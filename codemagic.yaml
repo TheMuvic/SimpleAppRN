@@ -1,0 +1,32 @@
+workflows:
+  ios-workflow:
+    name: iOS Build
+    environment:
+      node: latest
+      xcode: latest
+    scripts:
+      - name: Debug directory
+        script: |
+          pwd
+          ls -la
+          ls App.js || echo "App.js not found"
+      - name: Install dependencies
+        script: |
+          npm install
+      - name: Pod install
+        script: |
+          cd ios
+          pod install
+          cd ..
+      - name: Build and export IPA
+        script: |
+          xcode-project build-ipa \
+            --workspace "ios/SimpleAppRN.xcworkspace" \
+            --scheme "SimpleAppRN" \
+            --export-options-plist "$CM_EXPORT_OPTIONS"
+    artifacts:
+      - ios/build/**/*.ipa
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com  # Твой email
