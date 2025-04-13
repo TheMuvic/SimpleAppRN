@@ -5,21 +5,18 @@ import { Text, View, StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
-// Экран "Главная"
 const HomeScreen = () => (
   <View style={styles.container}>
     <Text style={styles.text}>Добро пожаловать!</Text>
   </View>
 );
 
-// Экран "Настройки"
 const SettingsScreen = () => (
   <View style={styles.container}>
     <Text style={styles.text}>Настройки</Text>
   </View>
 );
 
-// Главный компонент
 const App = () => {
   return (
     <NavigationContainer>
