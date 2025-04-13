@@ -15,4 +15,28 @@ workflows:
       - name: Install dependencies
         script: |
           npm install
-      - name: Pod_.
+      - name: Pod install
+        script: |
+          cd ios || { echo "ios directory not found"; exit 1; }
+          pod install
+          cd ..
+      - name: Debug code signing
+        script: |
+          echo "Checking certificates and profiles"
+          ls -la /Users/builder/.codemagic/certificates || echo "Certificates directory empty"
+          ls -la /Users/builder/.codemagic/profiles || echo "Profiles directory empty"
+          echo "Export options path: $CM_EXPORT_OPTIONS"
+          ls -la "$CM_EXPORT_OPTIONS" || echo "Export options file not found"
+          cat "$CM_EXPORT_OPTIONS" || echo "Cannot read export options"
+      - name: Build and export IPA
+        script: |
+          xcode-project build-ipa \
+            --workspace "ios/SimpleAppRN.xcworkspace" \
+            --scheme "SimpleAppRN" \
+            --export-options-plist "$CM_EXPORT_OPTIONS" || { echo "Export failed"; exit 1; }
+    artifacts:
+      - ios/build/**/*.ipa
+    publishing:
+      email:
+        recipients:
+          - your-email@example.com  # Replace with your email
