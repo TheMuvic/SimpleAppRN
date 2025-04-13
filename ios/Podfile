@@ -1,7 +1,7 @@
 require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-platform :ios, '14.0'  # Увеличиваем до iOS 14.0
+platform :ios, '14.0'  # Для React-RuntimeApple
 
 target 'SimpleAppRN' do
   config = use_native_modules!
@@ -9,8 +9,6 @@ target 'SimpleAppRN' do
     :path => '../node_modules/react-native',
     :hermes_enabled => false
   )
-
-  pod 'React-RuntimeApple', :path => '../node_modules/react-native/ReactCommon/react/runtime/platform/ios'
 
   use_flipper!() if !ENV['CI']
   post_install do |installer|
