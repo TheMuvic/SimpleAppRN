@@ -1,34 +1,20 @@
 {
-  "name": "My AltStore Repo",
-  "identifier": "com.example.altstorerepo",
-  "sourceURL": "https://example.com/altstore/apps.json",
+  "name": "SimpleAppRN Repo",
+  "identifier": "com.TheMuvic.SimpleAppRNRepo",
+  "sourceURL": "https://your-domain.com/apps.json",
   "apps": [
     {
-      "name": "Sample App",
-      "bundleIdentifier": "com.example.sampleapp",
-      "developerName": "Example Developer",
+      "name": "SimpleAppRN",
+      "bundleIdentifier": "com.TheMuvic.SimpleAppRN",  // Подтвердите в Xcode
+      "developerName": "Themuvin",
       "version": "1.0.0",
       "versionDate": "2025-04-18T19:35:00Z",
-      "downloadURL": "https://example.com/altstore/sampleapp.ipa",
-      "size": 52428800,
-      "iconURL": "https://example.com/altstore/sampleapp-icon.png",
-      "versionDescription": "Initial release of Sample App.",
-      "localizedDescription": "A sample application for testing AltStore.",
-      "minOSVersion": "14.0",
-      "permissions": {
-        "entitlements": [
-          "com.apple.developer.team-identifier",
-          "com.apple.developer.networking.wifi-info"
-        ]
-      }
-    }
-  ],
-  "news": [
-    {
-      "title": "Welcome to My AltStore Repo!",
-      "identifier": "welcome-news",
-      "caption": "We just launched our new AltStore repository.",
-      "date": "2025-04-18T19:35:00Z"
+      "downloadURL": "https://your-domain.com/SimpleAppRN.ipa",
+      "size": 12345678,  // Размер IPA в байтах
+      "iconURL": "https://your-domain.com/icon.png",
+      "versionDescription": "Начальный релиз",
+      "localizedDescription": "Простое React Native приложение",
+      "minOSVersion": "14.0"
     }
   ]
 }
